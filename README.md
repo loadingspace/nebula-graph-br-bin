@@ -55,10 +55,6 @@ show:
 
     result:
 
-       SNAPSHOT_2021_07_15_10_27_36   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
-       SNAPSHOT_2021_07_15_10_51_44   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
-       SNAPSHOT_2021_07_15_14_41_17   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
-       SNAPSHOT_2021_07_15_14_49_32   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
        SNAPSHOT_2021_07_15_16_08_55   VALID   nebula-graph-1:9779,nebula-graph-3:9779,nebula-graph-3:9779   
 
     finish!
