@@ -20,7 +20,7 @@ nebula-console说明：*https://docs.nebula-graph.com.cn/2.0.1/2.quick-start/3.c
       删除备份
       ./nebula_br.sh delete [nebulahost] [port] [user] [password] [snapshotname]
 
-      回滚到某个版本
+      恢复到某个版本
       ./nebula_br.sh restore [nebulahost] [port] [user] [password] [snapshotname] [restartnebulacommand]
 
       查看所有备份
