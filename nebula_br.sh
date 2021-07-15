@@ -109,6 +109,6 @@ case $ACTION in
 		show $2 $3 $4 $5
 		;;
 	*)
-		echo -e "\n 用法:\n\n    备份\n    backup [nebulahost] [port] [user] [password]\n\n    删除备份\n    delete [nebulahost] [port] [user] [password] [snapshotname]\n\n    回滚到某个版本\n    restore [nebulahost] [port] [user] [password] [snapshotname] [restartnebulacommand]\n\n    查看所有备份\n    show [nebulahost] [port] [user] [password]\n"
+		echo -e "\n 用法:\n\n    备份\n    backup [nebulahost] [port] [user] [password]\n\n    删除备份\n    delete [nebulahost] [port] [user] [password] [snapshotname]\n\n    恢复到某个版本\n    restore [nebulahost] [port] [user] [password] [snapshotname] [restartnebulacommand]\n\n    查看所有备份\n    show [nebulahost] [port] [user] [password]\n"
 		exit 1
 esac
