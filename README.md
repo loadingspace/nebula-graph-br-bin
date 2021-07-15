@@ -10,6 +10,8 @@ nebula-console说明：*https://docs.nebula-graph.com.cn/2.0.1/2.quick-start/3.c
 
 ## 使用方式
 
+！！！恢复功能restore需要配置，脚本服务器与nebula-graph各个节点的ssh免密登录
+
     用法:
 
       备份
@@ -38,7 +40,127 @@ nebula-console说明：*https://docs.nebula-graph.com.cn/2.0.1/2.quick-start/3.c
 
 ## 示例
 
+backup:
 
+    [root@test nebula-br]# ./nebula_br.sh backup nebula-graph-1 9669 1 1
+    nebula-consle is ok!
+    2021/07/15 16:08:49 [INFO] connection pool is initialized successfully
+    backup success! 
+    
+show:
+
+    [root@test nebula-br]# ./nebula_br.sh show nebula-graphd1 9669 1 1
+    nebula-consle is ok!
+    2021/07/15 16:10:32 [INFO] connection pool is initialized successfully
+
+    result:
+
+       SNAPSHOT_2021_07_15_10_27_36   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
+       SNAPSHOT_2021_07_15_10_51_44   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
+       SNAPSHOT_2021_07_15_14_41_17   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
+       SNAPSHOT_2021_07_15_14_49_32   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
+       SNAPSHOT_2021_07_15_16_08_55   VALID   nebula-graph-1:9779,nebula-graph-3:9779,nebula-graph-3:9779   
+
+    finish!
+    
+delete 
+
+    [root@test nebula-br]# ./nebula_br.sh delete nebula-graphd1 9669 1 1 SNAPSHOT_2021_07_15_10_27_36
+    nebula-consle is ok!
+    2021/07/15 16:13:20 [INFO] connection pool is initialized successfully
+    2021/07/15 16:13:20 [INFO] connection pool is initialized successfully
+    delete success! 
+    
+restore
+
+    [root@test nebula-br]# ./nebula_br.sh restore nebula-graph-1 9669 1 1 SNAPSHOT_2021_07_15_16_08_55 "/nebula/scripts/nebula.service restart all"
+    nebula-consle is ok!
+    /nebula/scripts/nebula.service restart all
+    /nebula/scripts/nebula.service restart all
+    2021/07/15 16:14:42 [INFO] connection pool is initialized successfully
+
+    result:
+
+       SNAPSHOT_2021_07_15_10_51_44   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
+       SNAPSHOT_2021_07_15_14_41_17   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
+       SNAPSHOT_2021_07_15_14_49_32   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
+       SNAPSHOT_2021_07_15_16_08_55   VALID   nebula-graph-1:9779,nebula-graph-2:9779,nebula-graph-3:9779   
+
+    finish!
+
+    正在处理 nebula-graph-1
+    ssh nebula-graph-1 'bash -s' < /tmp/nebula-br/nebula_restore.sh SNAPSHOT_2021_07_15_16_08_55 "/nebula/scripts/nebula.service restart all"
+    /nebula/scripts/nebula.service restart all
+    开始覆盖数据文件...
+    cover dir: /nebula/data/meta/nebula/0/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/11/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/32/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/33/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/89/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/94/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/99/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    执行重启命令...
+    /nebula/scripts/nebula.service restart all
+    [INFO] Stopping nebula-metad...
+    [INFO] Done
+    [INFO] Starting nebula-metad...
+    [INFO] Done
+    [INFO] Stopping nebula-graphd...
+    [INFO] Done
+    [INFO] Starting nebula-graphd...
+    [INFO] Done
+    [INFO] Stopping nebula-storaged...
+    [INFO] Done
+    [ERROR] nebula-storaged already running: 8030
+    正在处理 nebula-graph-2
+    ssh nebula-graph-2 'bash -s' < /tmp/nebula-br/nebula_restore.sh SNAPSHOT_2021_07_15_16_08_55 "/nebula/scripts/nebula.service restart all"
+    /nebula/scripts/nebula.service restart all
+    开始覆盖数据文件...
+    cover dir: /nebula/data/storage/nebula/11/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/32/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/33/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/89/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/94/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/99/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    执行重启命令...
+    /nebula/scripts/nebula.service restart all
+    [INFO] Stopping nebula-metad...
+    [INFO] Done
+    [INFO] Starting nebula-metad...
+    [INFO] Done
+    [INFO] Stopping nebula-graphd...
+    [INFO] Done
+    [INFO] Starting nebula-graphd...
+    [INFO] Done
+    [INFO] Stopping nebula-storaged...
+    [INFO] Done
+    [INFO] Starting nebula-storaged...
+    [INFO] Done
+    正在处理 nebula-graph-3
+    ssh nebula-graph-3 'bash -s' < /tmp/nebula-br/nebula_restore.sh SNAPSHOT_2021_07_15_16_08_55 "/nebula/scripts/nebula.service restart all"
+    /nebula/scripts/nebula.service restart all
+    开始覆盖数据文件...
+    cover dir: /nebula/data/storage/nebula/11/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/32/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/33/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/89/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/94/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    cover dir: /nebula/data/storage/nebula/99/checkpoints/SNAPSHOT_2021_07_15_16_08_55
+    执行重启命令...
+    /nebula/scripts/nebula.service restart all
+    [INFO] Stopping nebula-metad...
+    [INFO] Done
+    [INFO] Starting nebula-metad...
+    [INFO] Done
+    [INFO] Stopping nebula-graphd...
+    [INFO] Done
+    [INFO] Starting nebula-graphd...
+    [INFO] Done
+    [INFO] Stopping nebula-storaged...
+    [INFO] Done
+    [INFO] Starting nebula-storaged...
+    [INFO] Done
+    
 
 
 ## 注意事项
